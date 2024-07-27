@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 // @ts-ignore
 export async function GET(request) {
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY||"", {
+    const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY||"", {
 
         apiVersion: '2022-11-15',
     })
