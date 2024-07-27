@@ -1,11 +1,12 @@
 import Hero from "@/components/landingPage/Hero";
 import WhyStartupWeekend from "@/components/landingPage/WhyStartupWeekend";
-import { Mentor } from "@/components/landingPage/Mentor";
+
 import { Sponsor } from "@/components/landingPage/sponsor";
 import React from "react";
 import Link from "next/link";
 import { Metadata } from "next";
 import Techstar from "@/components/Techstar";
+import Mentors from "@/components/landingPage/Mentor";
 export interface Album {
   name: string;
   artist: string;
@@ -63,6 +64,7 @@ export default function Home() {
       <Hero />
       <WhyStartupWeekend />
       <Sponsor />
+      <Mentors />
       {/*<Techstar />*/}
       {/*<h1 className="m-4 text-4xl  font-medium tracking-tight leading-none text-gray-900 md:text-3xl lg:text-6xl dark:text-white">*/}
       {/*    Meet Our Mentor*/}
