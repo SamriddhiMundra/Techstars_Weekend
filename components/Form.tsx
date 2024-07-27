@@ -1,5 +1,5 @@
 "use client";
-import React, { FunctionComponent, Suspense ,useState,useEffect} from "react";
+import React, {useState,useEffect} from "react";
 import Link from "next/link";
 import {useSession} from "next-auth/react";
 import * as z from "zod";
@@ -30,46 +30,40 @@ import {
 import { db } from "@/lib/firebaseStore";
 import {query,where,collection,getDocs,doc,updateDoc} from "firebase/firestore";
 import axios from "axios";
-interface OwnProps {}
-
-type Props = OwnProps;
+interface FormComponentProps {
+    userId: string;
+  }
 const FormSchema = z.object({
     firstname: z.string({required_error:"This field is required"}).nonempty({ message: "First name is required" }),
     lastname: z.string({required_error:"This field is required"}).nonempty({ message: "Last name is required" }),
     email:z.string({required_error:"This field is required"}).nonempty({ message: "Email id is required" }),
     phone:z.string({required_error:"This field is required"}).min(10,{message:"10 digits"}).max(10,{message:"10 digits"}),
     location: z.string({required_error:"This field is required"}).min(3).max(50),
-    linkedin: z.string().url({message:"Invalid LinkedIn URL"}).optional(),
+    linkedin: z.string().optional(),
     size:z.enum(["S","M","L","XL","2XL"],{
         required_error: "Select your t-shirt size .",
         invalid_type_error: "Select your t-shirt size",
     }),
     term:z.boolean({required_error:"terms is required"}).default(true),
 })
-export const FormComponent: FunctionComponent<Props> = (props) => {
+const FormComponent: React.FC<FormComponentProps> = ({ userId }) => {
     const { toast } = useToast()
     const { data: session, status } = useSession();
-    const [userId,setUserId] =useState<string|null>(null);
     const route = useRouter()
 
-    useEffect(()=>{
-        const fetcher = async ()=>{
-            const  q= query(collection(db,"users"),where("email","==",session?.user?.email));
-             const querySnapshot = await getDocs(q);
-             setUserId(querySnapshot.docs[0].id)
-        }
-        fetcher();
-    },[session])
+
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
             size: "M",
            term: true,
+           email: session?.user?.email || "", 
+           linkedin:""
         },
     })
 
     const handleSubscription = async () => {
-        let price =process.env.PRICEID;
+        let price =process.env.NEXT_PUBLIC_PRICEID;
         const { data } = await axios.post('https://www.startupweekendvaranasi.com/api/payment',
             {
                 priceId:price,
@@ -85,17 +79,23 @@ export const FormComponent: FunctionComponent<Props> = (props) => {
     }
     async function onSubmit(values: z.infer<typeof FormSchema>) {
        try {
-           if(userId){
+        console.log("inside")
                const ref = doc(db, "users", userId);
-              await  updateDoc(ref,values);
-
+               const updatedValues = {
+                ...values, 
+                formFilled: true
+            };
+              await  updateDoc(ref,updatedValues);
+              
+              console.log(updateDoc)
                toast({
                    description: "Submitted successfully !!",
                })
-               route.push("/payment");
-           }
+            //    route.push("/payment");
+           
         }
         catch (error){
+            console.log(error)
             toast({
                 variant: "destructive",
                 title: "Uh oh! Something went wrong.",
@@ -157,7 +157,7 @@ export const FormComponent: FunctionComponent<Props> = (props) => {
                                 <FormMessage />
                                 </span>
                                 <FormControl>
-                                    <Input type="email" placeholder="Email Address" {...field} />
+                                    <Input type="email"  placeholder="Email Address" {...field} />
                                 </FormControl>
                             </FormItem>
                         )}
@@ -199,7 +199,7 @@ export const FormComponent: FunctionComponent<Props> = (props) => {
                             <FormItem>
                                 <FormLabel className="text-primary">LinkedIn URL (if applicable) </FormLabel>
                                 <FormControl>
-                                    <Input placeholder="LinkedIn URL" {...field} />
+                                    <Input  placeholder="LinkedIn URL" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -280,3 +280,4 @@ export const FormComponent: FunctionComponent<Props> = (props) => {
         </div>
     );
 };
+export default FormComponent;

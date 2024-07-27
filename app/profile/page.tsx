@@ -14,6 +14,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { EyeNoneIcon, PersonIcon } from "@radix-ui/react-icons";
+import useFormCheck from "@/hooks/useFormCheck";
 
 interface OwnProps {}
 
@@ -29,6 +30,7 @@ type User = {
 const Page: FunctionComponent<Props> = (props) => {
   const [user, setUser] = useState<User | null>(null);
   const { data: session } = useSession();
+  useFormCheck()
   useEffect(() => {
     const fetcher = async () => {
       const q = query(
