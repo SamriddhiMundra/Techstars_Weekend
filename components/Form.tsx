@@ -106,15 +106,15 @@ const FormComponent: React.FC<FormComponentProps> = ({ userId }) => {
     }
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
-
+    
     return (
-        <div className="max-w-full max-h-full py-3 px-3 shadow-green rounded-xl bg-background">
-            <div className="flex justify-center items-center gap-8">
+        <div className="max-w-full max-h-full py-3 px-3 md:shadow-green rounded-xl bg-background">
+            <div className="flex justify-center items-center md:gap-8 sm:gap-3 gap-2">
               <Image src={ecell} alt={"ecell IITBHU"} height={170} width={85}  /> 
-              <h1 className="text-3xl font-semibold text-black">Help Us Know You Better</h1>
+              <h1 className="text-2xl sm:text-2xl md:text-3xl font-semibold text-black text-center">Fill the form before buying ticket</h1>
               <Image src={techstarsLogo} alt={"techstarsLogo"} height={170} width={85}  /> 
             </div>
-            <Card className={"max-w-full px-6 py-6 bg-background"}>
+            <Card className={"max-w-full sm:px-3 px-3 md:px-6 py-6 bg-background"}>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <FormField
