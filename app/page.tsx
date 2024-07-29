@@ -1,6 +1,6 @@
 import Hero from "@/components/landingPage/Hero";
 import WhyStartupWeekend from "@/components/landingPage/WhyStartupWeekend";
-import { Mentor } from "@/components/landingPage/Mentor";
+import  Mentors  from "@/components/landingPage/Mentor";
 import { Sponsor } from "@/components/landingPage/sponsor";
 import { Judges } from "@/components/landingPage/judges";
 import React from "react";
@@ -39,7 +39,7 @@ export default function Home() {
       <Hero />
       <WhyStartupWeekend />
       <Sponsor />
-      <Mentors />
+      <Mentors/>
       {/*<Techstar />*/}
       {/*<h1 className="m-4 text-4xl  font-medium tracking-tight leading-none text-gray-900 md:text-3xl lg:text-6xl dark:text-white">*/}
       {/*    Meet Our Mentor*/}
