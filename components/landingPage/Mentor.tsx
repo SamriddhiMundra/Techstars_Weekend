@@ -2,14 +2,13 @@
 "use client"
 import React from 'react';
 import styled from 'styled-components';
-import {Mentors} from '@/lib/listofmentors.js'
+import {MentorsData} from '@/lib/listofmentors.js'
+
 interface Mentor {
   name: string;
   title: string;
   linkedin: string;
 }
-
-
 
 const MentorsContainer = styled.div`
   display: flex;
@@ -86,7 +85,7 @@ const Mentors: React.FC = () => {
     <MentorsContainer>
       <Heading>Meet Our Mentors</Heading>
       <CardsContainer>
-        {Mentors.map((mentor, index) => (
+        {MentorsData.map((mentor:Mentor, index) => (
           <MentorCard key={index}>
             <MentorPhoto>
               <img src={`https://via.placeholder.com/100`} alt={mentor.name} />
@@ -94,7 +93,7 @@ const Mentors: React.FC = () => {
             <MentorInfo>
               <h3>{mentor.name}</h3>
               <p>{mentor.title}</p>
-              <a href={mentor.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <a href={mentor?.linkedin??""} target="_blank" rel="noopener noreferrer">LinkedIn</a>
             </MentorInfo>
           </MentorCard>
         ))}
