@@ -61,6 +61,7 @@ const FormComponent: React.FC<FormComponentProps> = ({ userId }) => {
            linkedin:""
         },
     })
+    const username=session?.user?.name||"";
 
     const handleSubscription = async () => {
         let price =process.env.NEXT_PUBLIC_PRICEID;
@@ -109,10 +110,14 @@ const FormComponent: React.FC<FormComponentProps> = ({ userId }) => {
     
     return (
         <div className="max-w-full max-h-full py-3 px-3 md:shadow-green rounded-xl bg-background">
+            <div>
+                    <h1 className="text-2xl sm:text-2xl md:text-3xl font-semibold text-stone-600 text-center mt-8">Welcome, {username}!</h1>
+                </div>
             <div className="flex justify-center items-center md:gap-8 sm:gap-3 gap-2">
-              <Image src={ecell} alt={"ecell IITBHU"} height={170} width={85}  /> 
-              <h1 className="text-2xl sm:text-2xl md:text-3xl font-semibold text-black text-center">Fill the form before buying ticket</h1>
-              <Image src={techstarsLogo} alt={"techstarsLogo"} height={170} width={85}  /> 
+                
+              <Image src={ecell} alt={"ecell IITBHU"} height={170} width={85} className="hidden sm:block" /> 
+              <h1 className="text-2xl sm:text-2xl md:text-3xl font-semibold text-stone-700 text-center">Fill the form to purchase ticket.</h1>
+              <Image src={techstarsLogo} alt={"techstarsLogo"} height={170} width={85} className="hidden sm:block" /> 
             </div>
             <Card className={"max-w-full sm:px-3 px-3 md:px-6 py-6 bg-background"}>
             <Form {...form}>
