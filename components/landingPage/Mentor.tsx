@@ -101,7 +101,7 @@ const Mentors: React.FC = () => {
              </div>
             <MentorInfo>
               <h3>{ment.name}</h3>
-              <p>{ment.title}</p>
+              <p className="min-h-[48px]">{ment.title}</p>
               <div>
               <a href={ment.linkedin} target="_blank" rel="noopener noreferrer"> 
               <FaLinkedin style={{ fontSize: '40px' }} />
