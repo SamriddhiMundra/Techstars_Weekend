@@ -2,12 +2,12 @@
 "use client"
 import React from 'react';
 import styled from 'styled-components';
-import {Mentors} from '@/lib/listofmentors.js'
-interface Mentor {
-  name: string;
-  title: string;
-  linkedin: string;
-}
+import Mentor from "@/lib/listofmentors.js"
+import Image from "next/image"
+import { FaLinkedin} from "react-icons/fa";
+interface OwnProps {} 
+
+type Props = OwnProps;
 
 
 
@@ -86,15 +86,19 @@ const Mentors: React.FC = () => {
     <MentorsContainer>
       <Heading>Meet Our Mentors</Heading>
       <CardsContainer>
-        {Mentors.map((mentor, index) => (
+        {Mentor.map((ment, index) => (
           <MentorCard key={index}>
-            <MentorPhoto>
-              <img src={`https://via.placeholder.com/100`} alt={mentor.name} />
-            </MentorPhoto>
+            <div className="flex justify-center content-center">
+             <Image src={ment.src} alt={ment.alt} height={100} width={100} className="mr-5 mb-4 "></Image>
+             </div>
             <MentorInfo>
-              <h3>{mentor.name}</h3>
-              <p>{mentor.title}</p>
-              <a href={mentor.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <h3>{ment.name}</h3>
+              <p>{ment.title}</p>
+              <div>
+              <a href={ment.linkedin} target="_blank" rel="noopener noreferrer"> 
+              <FaLinkedin style={{ fontSize: '40px' }} />
+              </a>
+              </div>
             </MentorInfo>
           </MentorCard>
         ))}

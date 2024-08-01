@@ -70,6 +70,10 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      boxShadow: {
+        'green': '0 0 8px rgb(48, 170, 41)', 
+        'greencard': '0 0 2px rgb(48, 170, 41, 0.8)', 
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
