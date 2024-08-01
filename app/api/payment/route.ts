@@ -4,11 +4,11 @@ import { NextResponse,type NextRequest } from "next/server";
 //@ts-ignore
 export async function POST(request:NextRequest) {
     const baseUrl = request.headers.get("origin");
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!, {
         apiVersion: '2022-11-15',
     });
     let data = await request.json();
-    let priceId = process.env.PRICEID
+    let priceId = process.env.NEXT_PUBLIC_PRICEID
     const session = await stripe.checkout.sessions.create({
         line_items: [
             {

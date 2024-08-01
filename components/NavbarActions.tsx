@@ -2,18 +2,10 @@
 
 import React, { FunctionComponent, Suspense } from "react";
 import Link from "next/link";
-import { signIn, signOut } from "next-auth/react";
+import { signIn} from "next-auth/react";
 import { useSession } from "next-auth/react";
 
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { UserNav } from "@/components/UserNav";
 
 interface OwnProps {}

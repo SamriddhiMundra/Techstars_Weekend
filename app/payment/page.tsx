@@ -1,9 +1,11 @@
 "use client";
-import React, { FunctionComponent, Suspense ,useState,useEffect} from "react";
+import React, { FunctionComponent, Suspense ,useState,useEffect, useLayoutEffect} from "react";
 interface OwnProps {}
 import {useRouter} from "next/navigation";
 import {useSession} from "next-auth/react";
 import {Skeleton} from "@/components/ui/skeleton";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "@/lib/firebaseStore";
 
 type Props = OwnProps;
 
@@ -11,12 +13,24 @@ type Props = OwnProps;
      const { data: session } = useSession();
      const route = useRouter()
 
-     useEffect(() => {
+     useLayoutEffect(() => {
          if(!session){
              route.push("/api/login")
          }
      }, [session]);
-
+     useEffect(()=>{
+        const fetcher = async ()=>{
+            const  q= query(collection(db,"users"),where("email","==","shivanshu264@gmail.com"));
+             const querySnapshot = await getDocs(q);
+             const data=querySnapshot.docs[0].data()
+             if(!data.formfilled){
+                console.log("form not filled")
+                route.push("/form")
+             }
+            
+        }
+        fetcher();
+    },[session])
      return (
         <div className="max-w-full max-h-full p-2 my-4 mx-auto lg:mx-10">
             {session?<div>

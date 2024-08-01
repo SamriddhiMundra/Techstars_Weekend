@@ -1,5 +1,5 @@
 "use client";
-import React, { FunctionComponent, Suspense ,useState,useEffect} from "react";
+import React, {useState,useEffect} from "react";
 import Link from "next/link";
 import {useSession} from "next-auth/react";
 import * as z from "zod";
@@ -14,6 +14,9 @@ import { Card } from "@/components/ui/card"
 import { useToast } from "@/components/ui/use-toast"
 import { ToastAction } from "@/components/ui/toast"
 import {useRouter} from "next/navigation";
+import techstarsLogo from "@/public/assets/gswvaranasi.jpg";
+import ecell from "@/public/assets/iitbhulogo.png";
+import Image from "next/image";
 
 import {
     Form,
@@ -27,44 +30,40 @@ import {
 import { db } from "@/lib/firebaseStore";
 import {query,where,collection,getDocs,doc,updateDoc} from "firebase/firestore";
 import axios from "axios";
-interface OwnProps {}
-
-type Props = OwnProps;
+interface FormComponentProps {
+    userId: string;
+  }
 const FormSchema = z.object({
-    firstname: z.string({required_error:"First Name is required"}).nonempty({ message: "First name is required" }),
-    lastname: z.string({required_error:"Last Name is required"}).nonempty({ message: "Last name is required" }),
-    phone:z.string({required_error:"Phone number required"}).min(10,{message:"10 digits"}).max(10,{message:"10 digits"}),
-    location: z.string({required_error:"Location is required"}).min(3).max(50),
-    linkedin: z.string({required_error:"LinkedIn Id is required"}).url({message:"Invalid LinkedIn URL"}),
+    firstname: z.string({required_error:"This field is required"}).nonempty({ message: "First name is required" }),
+    lastname: z.string({required_error:"This field is required"}).nonempty({ message: "Last name is required" }),
+    email:z.string({required_error:"This field is required"}).nonempty({ message: "Email id is required" }),
+    phone:z.string({required_error:"This field is required"}).min(10,{message:"10 digits"}).max(10,{message:"10 digits"}),
+    location: z.string({required_error:"This field is required"}).min(3).max(50),
+    linkedin: z.string().optional(),
     size:z.enum(["S","M","L","XL","2XL"],{
         required_error: "Select your t-shirt size .",
         invalid_type_error: "Select your t-shirt size",
     }),
     term:z.boolean({required_error:"terms is required"}).default(true),
 })
-export const FormComponent: FunctionComponent<Props> = (props) => {
+const FormComponent: React.FC<FormComponentProps> = ({ userId }) => {
     const { toast } = useToast()
     const { data: session, status } = useSession();
-    const [userId,setUserId] =useState<string|null>(null);
     const route = useRouter()
 
-    useEffect(()=>{
-        const fetcher = async ()=>{
-            const  q= query(collection(db,"users"),where("email","==",session?.user?.email));
-             const querySnapshot = await getDocs(q);
-             setUserId(querySnapshot.docs[0].id)
-        }
-        fetcher();
-    },[session])
+
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
             size: "M",
            term: true,
+           email: session?.user?.email || "", 
+           linkedin:""
         },
     })
+
     const handleSubscription = async () => {
-        let price =process.env.PRICEID;
+        let price =process.env.NEXT_PUBLIC_PRICEID;
         const { data } = await axios.post('https://www.startupweekendvaranasi.com/api/payment',
             {
                 priceId:price,
@@ -80,17 +79,23 @@ export const FormComponent: FunctionComponent<Props> = (props) => {
     }
     async function onSubmit(values: z.infer<typeof FormSchema>) {
        try {
-           if(userId){
+        console.log("inside")
                const ref = doc(db, "users", userId);
-              await  updateDoc(ref,values);
-
+               const updatedValues = {
+                ...values, 
+                formFilled: true
+            };
+              await  updateDoc(ref,updatedValues);
+              
+              console.log(updateDoc)
                toast({
                    description: "Submitted successfully !!",
                })
-               route.push("/payment");
-           }
+            //    route.push("/payment");
+           
         }
         catch (error){
+            console.log(error)
             toast({
                 variant: "destructive",
                 title: "Uh oh! Something went wrong.",
@@ -99,21 +104,31 @@ export const FormComponent: FunctionComponent<Props> = (props) => {
             })
         }
     }
+
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    
     return (
-        <div className="max-w-full max-h-full p-2"> <h1 className="text-4xl font-semibold text-center pb-2">Fill the Form</h1>
-            <Card className={"min-w-max p-6"}>
+        <div className="max-w-full max-h-full py-3 px-3 md:shadow-green rounded-xl bg-background">
+            <div className="flex justify-center items-center md:gap-8 sm:gap-3 gap-2">
+              <Image src={ecell} alt={"ecell IITBHU"} height={170} width={85}  /> 
+              <h1 className="text-2xl sm:text-2xl md:text-3xl font-semibold text-black text-center">Fill the form before buying ticket</h1>
+              <Image src={techstarsLogo} alt={"techstarsLogo"} height={170} width={85}  /> 
+            </div>
+            <Card className={"max-w-full sm:px-3 px-3 md:px-6 py-6 bg-background"}>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <FormField
                         control={form.control}
                         name="firstname"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>First name</FormLabel>
+                                <span className="flex space-x-2 items-center">
+                                <FormLabel className="text-primary">First name<span className="text-red-500"> *</span></FormLabel>
+                                <FormMessage />
+                                </span>
                                 <FormControl>
                                     <Input placeholder="Name" {...field} />
                                 </FormControl>
-                                <FormMessage />
                             </FormItem>
                         )}
                     />
@@ -122,11 +137,28 @@ export const FormComponent: FunctionComponent<Props> = (props) => {
                         name="lastname"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Last name</FormLabel>
+                                <span className="flex space-x-2 items-center">
+                                <FormLabel className="text-primary">Last name<span className="text-red-500"> *</span></FormLabel>
+                                <FormMessage />
+                                </span>
                                 <FormControl>
                                     <Input placeholder="Last name" {...field} />
                                 </FormControl>
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                            <FormItem>
+                                <span className="flex space-x-2 items-center">
+                                <FormLabel className="text-primary">Email address<span className="text-red-500"> *</span></FormLabel>
                                 <FormMessage />
+                                </span>
+                                <FormControl>
+                                    <Input type="email"  placeholder="Email Address" {...field} />
+                                </FormControl>
                             </FormItem>
                         )}
                     />
@@ -135,11 +167,13 @@ export const FormComponent: FunctionComponent<Props> = (props) => {
                         name="phone"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Phone Number</FormLabel>
+                                <span className="flex space-x-2 items-center">
+                                <FormLabel className="text-primary">Phone Number<span className="text-red-500"> *</span></FormLabel>
+                                <FormMessage />
+                                </span>
                                 <FormControl>
                                     <Input type="number" placeholder="Phone number" {...field} />
                                 </FormControl>
-                                <FormMessage />
                             </FormItem>
                         )}
                     />
@@ -148,11 +182,13 @@ export const FormComponent: FunctionComponent<Props> = (props) => {
                         name="location"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Location</FormLabel>
+                                <span className="flex space-x-2 items-center">
+                                <FormLabel className="text-primary">Location(city/country)<span className="text-red-500"> *</span></FormLabel>
+                                <FormMessage />
+                                </span>
                                 <FormControl>
                                     <Input placeholder="location" {...field} />
                                 </FormControl>
-                                <FormMessage />
                             </FormItem>
                         )}
                     />
@@ -161,9 +197,9 @@ export const FormComponent: FunctionComponent<Props> = (props) => {
                         name="linkedin"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>LinkedIn URL</FormLabel>
+                                <FormLabel className="text-primary">LinkedIn URL (if applicable) </FormLabel>
                                 <FormControl>
-                                    <Input placeholder="LinkedIn URL" {...field} />
+                                    <Input  placeholder="LinkedIn URL" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -175,13 +211,13 @@ export const FormComponent: FunctionComponent<Props> = (props) => {
                         render={({ field }) => (
                             <>
                                 <FormItem >
-                                    <FormLabel>T-shirt Size</FormLabel>
+                                    <FormLabel className="text-primary">T-shirt Size</FormLabel>
                                     <div className="relative w-max">
                                         <FormControl>
                                             <select
                                                 className={cn(
                                                     buttonVariants({ variant: "outline" }),
-                                                    "w-[200px] appearance-none bg-transparent font-normal"
+                                                    "w-[180px] appearance-none bg-transparent font-normal"
                                                 )}
                                                 {...field}
                                             >
@@ -192,7 +228,7 @@ export const FormComponent: FunctionComponent<Props> = (props) => {
                                                 <option value={"2XL"}>2XL</option>
                                             </select>
                                         </FormControl>
-                                        <ChevronDown className="absolute right-3 top-3 h-4 w-4 opacity-50" />
+                                        <ChevronDown className="absolute right-3 top-3 h-3 w-3 opacity-50" />
                                     </div>
                                     <FormMessage />
                                 </FormItem>
@@ -200,32 +236,48 @@ export const FormComponent: FunctionComponent<Props> = (props) => {
                         )}
                     />
                     <FormField
-                        control={form.control}
-                        name="term"
-                        render={({ field }) => (
-                            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                                <FormControl>
-                                    <Checkbox
-                                        checked={field.value}
-                                        onCheckedChange={field.onChange}
-                                    />
-                                </FormControl>
-                                <div className="space-y-1 leading-none max-w-lg">
-                                    <FormLabel>
-                                        Terms and conditions
-                                    </FormLabel>
-                                    <FormDescription>
-                                        By acquiring a ticket to a Techstars Startup Weekend event, you are agreeing to our <Link href="http://www.techstars.com/terms-of-use/" className="text-black font-medium" target="_blank">Terms of Use </Link> and <Link href="http://www.techstars.com/privacy-policy-4/" className="text-black font-medium" target="_blank">Privacy Policy </Link>. If you have questions please reach out to privacy@techstars.com.
-                                    </FormDescription>
-                                </div>
-                            </FormItem>
-                        )}
-                    />
-
-                    <Button type="submit">Submit</Button>
+                            control={form.control}
+                            name="term"
+                            render={({ field }) => (
+                                <FormItem className="flex flex-row items-center space-x-3 border px-3 py-2 rounded-xl">
+                                    <FormControl>
+                                        <Checkbox
+                                            checked={field.value}
+                                            onCheckedChange={field.onChange}
+                                        />
+                                    </FormControl>
+                                    <div className="space-y-2 leading-none max-w-lg flex-1">
+                                        <div className="flex items-center justify-between">
+                                            <FormLabel className="text-primary flex-1">
+                                                Terms and conditions<span className="text-red-500"> *</span>
+                                            </FormLabel>
+                                            <button
+                                                type="button"
+                                                className="ml-2"
+                                                onClick={() => setDropdownOpen(!dropdownOpen)}
+                                            >
+                                                <ChevronDown className={`transition-all transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
+                                            </button>
+                                        </div>
+                                        
+                                            <div className={`transition-max-height duration-400 overflow-hidden ${dropdownOpen ? 'max-h-48': 'max-h-0'}`}>
+                                            <FormDescription className="leading-snug">
+                                                By acquiring a ticket to a Techstars Startup Weekend event, you are agreeing to our <Link href="http://www.techstars.com/terms-of-use/" className="text-black font-medium hover:text-primary" target="_blank">Terms of Use </Link> and <Link href="http://www.techstars.com/privacy-policy-4/" className="text-black font-medium hover:text-primary" target="_blank">Privacy Policy </Link>. If you have questions please reach out to privacy@techstars.com.
+                                            </FormDescription>
+                                            </div>
+                                        
+                                    </div>
+                                </FormItem>
+                            )}
+                        />
+                    <div className="flex space-x-5">
+                        <Button type="submit">Submit</Button>
+                        <Button type="button" variant="reset" onClick={() => form.reset()}>Reset</Button>
+                    </div>
                 </form>
             </Form>
         </Card>
         </div>
     );
 };
+export default FormComponent;

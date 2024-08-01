@@ -1,7 +1,6 @@
 import Image from "next/image"
 import React,{FunctionComponent}from 'react'
-import { FaLinkedin, FaTwitter,FaInstagram } from "react-icons/fa";
-import {ListofJudges} from "@/lib/samplejudges.js"
+import {ListOfJudges} from "@/lib/samplejudges.js"
 
 
 
@@ -14,7 +13,7 @@ export const Judges: FunctionComponent<Props> = (props) => {
             <div className="font-semibold text-2xl text-black uppercase text-center mb-7">Judges</div>
             <div className="flex flex-wrap justify-around items-center   " >
                 {
-                    ListofJudges.map((data,index)=>
+                    ListOfJudges?.map((data,index)=>
                         // <div className=" mt-7 m-2 flex justify-center items-center h-40 rounded-lg p-2 " key={index}>
                     <div className=" rounded-lg border h-auto border-box  mt-7 mr-10 mb-7  shadow lg:mb-0 flex flex-col justify-center items-center  hover:text-gray-800 dark:hover:text-gray-400 "key={index}>
                             <div className=" flex-col justify-center items-center text-center">
