@@ -24,14 +24,22 @@ const Heading = styled.h2`
   margin-bottom: 20px;
   font-weight: bold;
 `;
-
 const CardsContainer = styled.div`
   display: grid;
   flex-wrap: wrap;
   justify-content: center;
   gap: 60px;
   grid-template-columns: repeat(3, 1fr);
-`;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 601px) and (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+`;//See this change done for responsiveness in small screens.
+
 
 const MentorCard = styled.div`
   background-color: white;

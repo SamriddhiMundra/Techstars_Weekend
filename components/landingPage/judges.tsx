@@ -79,7 +79,7 @@ export const Judges: FunctionComponent<Props> = (props) => {
             />
             <JudgeInfo>
               <h3>{data.head}</h3>
-              <p>{data.info}</p>
+              <p className="line-clamp-5">{data.info}</p>
               <div>
                 <a href={data.linkedin} target="_blank" rel="noopener noreferrer">
                   <FaLinkedin style={{ fontSize: '40px' }} />
