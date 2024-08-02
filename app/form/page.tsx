@@ -13,13 +13,26 @@ export default function Home() {
     const [userId,setUserId] =useState<string>("");
     const route = useRouter()
     useLayoutEffect(()=>{
-       if(!session) {
+       if(status=="unauthenticated") {
            route.push("/api/login")
        }
-    },[session])
+    },[status])
     useEffect(()=>{
         const fetcher = async ()=>{
             const  q= query(collection(db,"users"),where("email","==","shivanshu264@gmail.com"));
+             const querySnapshot = await getDocs(q);
+             const data=querySnapshot.docs[0].data()
+             if(data.formfilled){
+                console.log("form not filled")
+                route.push("/payment")
+             }
+            
+        }
+        fetcher();
+    },[session])
+    useEffect(()=>{
+        const fetcher = async ()=>{
+            const  q= query(collection(db,"users"),where("email","==",session?.user?.email));
              const querySnapshot = await getDocs(q);
              console.log(querySnapshot.docs[0].data(),"qtt")
              setUserId(querySnapshot.docs[0].id)
