@@ -92,7 +92,7 @@ const FormComponent: React.FC<FormComponentProps> = ({ userId }) => {
                toast({
                    description: "Submitted successfully !!",
                })
-            //    route.push("/payment");
+               route.push("/payment");
            
         }
         catch (error){

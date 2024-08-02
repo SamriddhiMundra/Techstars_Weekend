@@ -2,13 +2,14 @@
 "use client"
 import React from 'react';
 import styled from 'styled-components';
-import {MentorsData} from '@/lib/listofmentors.js'
+import Mentor from "@/lib/listofmentors.js"
+import Image from "next/image"
+import { FaLinkedin} from "react-icons/fa";
+interface OwnProps {} 
 
-interface Mentor {
-  name: string;
-  title: string;
-  linkedin: string;
-}
+type Props = OwnProps;
+
+
 
 const MentorsContainer = styled.div`
   display: flex;
@@ -23,14 +24,22 @@ const Heading = styled.h2`
   margin-bottom: 20px;
   font-weight: bold;
 `;
-
 const CardsContainer = styled.div`
   display: grid;
   flex-wrap: wrap;
   justify-content: center;
   gap: 60px;
   grid-template-columns: repeat(3, 1fr);
-`;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 601px) and (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+`;//See this change done for responsiveness in small screens.
+
 
 const MentorCard = styled.div`
   background-color: white;
@@ -85,15 +94,19 @@ const Mentors: React.FC = () => {
     <MentorsContainer>
       <Heading>Meet Our Mentors</Heading>
       <CardsContainer>
-        {MentorsData.map((mentor:Mentor, index) => (
+        {Mentor.map((ment, index) => (
           <MentorCard key={index}>
-            <MentorPhoto>
-              <img src={`https://via.placeholder.com/100`} alt={mentor.name} />
-            </MentorPhoto>
+            <div className="flex justify-center content-center">
+             <Image src={ment.src} alt={ment.alt} height={100} width={100} className="mr-5 mb-4 "></Image>
+             </div>
             <MentorInfo>
-              <h3>{mentor.name}</h3>
-              <p>{mentor.title}</p>
-              <a href={mentor?.linkedin??""} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <h3>{ment.name}</h3>
+              <p className="min-h-[48px]">{ment.title}</p>
+              <div>
+              <a href={ment.linkedin} target="_blank" rel="noopener noreferrer"> 
+              <FaLinkedin style={{ fontSize: '40px' }} />
+              </a>
+              </div>
             </MentorInfo>
           </MentorCard>
         ))}
