@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React, { FunctionComponent } from "react";
 import { FaLinkedin, FaTwitter, FaInstagram } from "react-icons/fa";
-import { ListofJudges } from "@/lib/samplejudges.js";
+import { ListOfJudges } from "@/lib/samplejudges.js";
 import styled from 'styled-components';
 
 interface OwnProps {}
@@ -68,7 +68,7 @@ export const Judges: FunctionComponent<Props> = (props) => {
     <div className="mt-7 max-w-screen">
       <Heading>Judges</Heading>
       <JudgesContainer>
-        {ListofJudges.map((data, index) => (
+        {ListOfJudges.map((data, index) => (
           <Card key={index}>
             <Image
               src={data.src}

@@ -1,6 +1,6 @@
 "use client";
 import axios from "axios";
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect } from "react";
 import PricingCard from "@/components/PricingCard";
 import { Skeleton } from "@/components/ui/skeleton";
 import {useSession} from "next-auth/react";

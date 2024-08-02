@@ -6,7 +6,7 @@ import { Judges } from "@/components/landingPage/judges";
 import React from "react";
 import Link from "next/link";
 import { Metadata } from "next";
-import Techstar from "@/components/Techstar";
+import { db } from "@/lib/firebaseStore";
 export interface Album {
   name: string;
   artist: string;
@@ -31,6 +31,7 @@ export const metadata: Metadata = {
     "",
   ],
 };
+
 
 
 export default function Home() {
