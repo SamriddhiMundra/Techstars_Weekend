@@ -26,7 +26,7 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
                     >
                         <>
                             {/* eslint-disable-next-line react/jsx-no-undef */}
-                            <Icons.chevronLeft className="mr-1 h-4 w-4" />
+                            <Icons.chevronLeft className="mr-1 h-4 w-4 " />
                             Back
                         </>
                     </Link>
