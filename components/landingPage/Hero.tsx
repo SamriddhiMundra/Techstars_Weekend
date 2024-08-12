@@ -61,7 +61,7 @@ const Hero: FunctionComponent<Props> = () => {
           Innovator to Entrepreneur
         </h1>
         <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
-          AUGUST 25-27, 2023, IIT BHU Varanasi
+          SEPTEMBER 20-22, 2024, IIT BHU Varanasi
         </p>
         <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
           <Link href={"/payment"}>
