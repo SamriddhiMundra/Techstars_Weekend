@@ -22,8 +22,8 @@ export default function Home() {
             const  q= query(collection(db,"users"),where("email","==","shivanshu264@gmail.com"));
              const querySnapshot = await getDocs(q);
              const data=querySnapshot.docs[0].data()
-             if(data.formfilled){
-                console.log("form not filled")
+             if(data.formFilled){
+                console.log("form  filled")
                 route.push("/payment")
              }
             
