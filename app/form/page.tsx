@@ -23,7 +23,7 @@ export default function Home() {
              const querySnapshot = await getDocs(q);
              const data=querySnapshot.docs[0].data()
              if(data.formFilled){
-                console.log("form  filled")
+                console.log("form filled")
                 route.push("/payment")
              }
             
