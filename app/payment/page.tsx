@@ -21,7 +21,7 @@ type Props = OwnProps;
      }, [session]);
      useEffect(()=>{
         const fetcher = async ()=>{
-            const  q= query(collection(db,"users"),where("email","==","shivanshu264@gmail.com"));
+            const  q= query(collection(db,"users"),where("email","==",session?.user?.email));
              const querySnapshot = await getDocs(q);
              const data=querySnapshot.docs[0].data()
              setUser(data)
