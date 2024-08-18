@@ -19,7 +19,7 @@ export default function Home() {
     },[status])
     useEffect(()=>{
         const fetcher = async ()=>{
-            const  q= query(collection(db,"users"),where("email","==","shivanshu264@gmail.com"));
+            const  q= query(collection(db,"users"),where("email","==",session?.user?.email));
              const querySnapshot = await getDocs(q);
              const data=querySnapshot.docs[0].data()
              if(data.formFilled){
