@@ -38,7 +38,7 @@ const WhyStartupWeekend: FunctionComponent<Props> = () => {
       <div className="flex flex-wrap justify-center">
       {
           detail.map((data,index)=>{
-             return(<Card key={index} className="max-w-sm m-4 transition ease-in-out hover:scale-110">
+             return(<Card key={index} className="max-w-sm m-4 transition ease-in-out hover:scale-110 bg-primary text-white text-center rounded-lg">
                       <CardHeader>
                           <CardTitle>{data.title}</CardTitle>
                       </CardHeader>
