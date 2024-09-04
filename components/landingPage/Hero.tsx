@@ -9,6 +9,10 @@ import Google from "@/public/assets/GoogleForStartups_Horizontal1.png";
 import gd from "@/public/assets/GD_REGISTRY_POWERED_BY_LOCKUP_3_CMYK_COLOR1.png";
 //@ts-ignore
 import brex from "@/public/assets/BrexBlack.png";
+import merch from "@/public/assets/merch2.jpg";
+import goodies from "@/public/assets/goodies.png";
+import godaddy from "@/public/assets/godaddy.png";
+import googlecloud from "@/public/assets/googlecloud.png";
 import ecell from "@/public/assets/iitbhulogo.png";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,10 +28,10 @@ type Props = OwnProps;
 const Hero: FunctionComponent<Props> = () => {
   return (
     <section className="bg-white dark:bg-gray-900">
-      <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
+      <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12 lg:-mt-28  ">
         <a
           href="https://www.ecelliitbhu.com/" target="_blank"
-          className="inline-flex justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
+          className="inline-flex justify-between items-center  py-1 px-1 pr-4 mb-7 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
           role="alert"
         >
           <span className="text-xs bg-primary rounded-full text-white px-4 py-1.5 mr-3">
@@ -63,7 +67,7 @@ const Hero: FunctionComponent<Props> = () => {
         <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
           SEPTEMBER 20-22, 2024, IIT BHU Varanasi
         </p>
-        <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+        <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4 ">
           <Link href={"/payment"}>
             <Button size={"lg"} className="text-2xl py-2">
               <Icons.ticket className={"h-5 w-5 mr-2"} />
@@ -73,7 +77,7 @@ const Hero: FunctionComponent<Props> = () => {
         </div>
         <div className="px-4 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36">
           <span className="font-semibold text-2xl text-black uppercase">
-            What is Startup weekend
+            What is Startup Weekend
           </span>
           <div className="mt-8 align-baseline">
             <p className="font-medium text-md">Learn how to think, work, and build like a startup in 54 thrilling hours. <b>Techstars Startup Weekend </b>is an exciting and immersive foray into the world of startups. Over an action-packed three days, you’ll meet the very best mentors, investors, co-founders and sponsors to show you how to get more done faster -- and, maybe even start that Business.</p>
@@ -109,7 +113,34 @@ const Hero: FunctionComponent<Props> = () => {
             {/*</a>*/}
           </div>
         </div>
-      </div>
+        <div className="mt-20 mb-5 text-center lg:text-6xl font-extrabold sm:text-4xl text-3xl">
+          <span>Benefits Of Startup Weekend</span>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-4 mx-auto">
+          <div className="text-center">
+            <Image src={merch} alt={"merch"} className="w-40 h-40 mx-auto" />
+            <p className="mt-4 text-xl font-semibold">Merchandise</p>
+          </div>
+          <div className="text-center">
+            <Image src={goodies} alt={"goodies"} className="w-40 h-40 mx-auto" />
+            <p className="mt-4 text-xl font-semibold">Goodies</p>
+          </div>
+          <div className="text-center lg:mt-16 md:mt-10">
+            <Image src={brex} alt={"brex"} className="lg:w-60 lg:h-24 md:h-14 sm:w-48 sm:h-8 w-32 h-10 mx-auto" />
+            <p className="mt-4 text-xl font-semibold">Brex Rewards</p>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 px-4 mx-auto mt-12">
+          <div className="text-center lg:mt-20 md:mt-16">
+            <Image src={godaddy} alt={"godaddy"} className="w-52 h-16 mx-auto" />
+            <p className="mt-4 text-xl font-semibold">Free GoDaddy domain (.co.in)</p>
+          </div>
+          <div className="text-center ">
+            <Image src={googlecloud} alt={"googlecloud"} className="w-40 h-36 mx-auto" />
+            <p className="mt-4 text-xl font-semibold">$300 Google Credits</p>
+          </div>
+        </div>
+        </div>
     </section>
   );
 };
