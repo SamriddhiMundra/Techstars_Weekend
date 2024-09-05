@@ -48,7 +48,7 @@ const JudgeInfo = styled.div`
 `;
 
 const Card = styled.div`
-  margin: 30px;
+  margin: 50px;
   padding: 20px;
   width: 250px; /* Adjust the width as needed */
   border-radius: 8px;
