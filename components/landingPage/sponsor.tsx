@@ -46,17 +46,17 @@ const ListOfSponsor =[
     },
     {
         src:hsbc,
-        href:"https://www.brex.com/",
+        href:"https://www.hsbc.co.in/",
         alt:"hsbc"
     },
     {
         src:mercury,
-        href:"https://www.brex.com/",
+        href:"https://mercury.com/",
         alt:"mercury"
     },
     {
         src:deel,
-        href:"https://www.brex.com/",
+        href:"https://www.deel.com/",
         alt:"deel"
     }
     // {
