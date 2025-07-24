@@ -10,20 +10,11 @@ import React, {FunctionComponent} from "react";
 
 //@ts-ignore
 import Google from "@/public/assets/GoogleForStartups_Horizontal1.png"
-//@ts-ignore
-import gd from "@/public/assets/GD_REGISTRY_POWERED_BY_LOCKUP_3_CMYK_COLOR1.png"
+
 // @ts-ignore
 import brex from "@/public/assets/BrexBlack.png"
 
 // @ts-ignore
-import mercury from "@/public/assets/Mercury.png"
-
-
-// @ts-ignore
-
-import hsbc from "@/public/assets/hsbc.png"
-// @ts-ignore
-
 import deel from "@/public/assets/deel.png"
 
 // import ecell from "@/public/assets/iitbhulogo.png";
@@ -34,26 +25,14 @@ const ListOfSponsor =[
     href:"https://startup.google.com/",
     alt:"google"
     },
-    {
-        src:gd,
-        href:"https://www.godaddy.com/",
-        alt:"goDaddy"
-    },
+    
     {
         src:brex,
         href:"https://www.brex.com/",
         alt:"brex"
     },
-    {
-        src:hsbc,
-        href:"https://www.hsbc.co.in/",
-        alt:"hsbc"
-    },
-    {
-        src:mercury,
-        href:"https://mercury.com/",
-        alt:"mercury"
-    },
+    
+    
     {
         src:deel,
         href:"https://www.deel.com/",
