@@ -1,35 +1,32 @@
 "use client";
-import React, { FunctionComponent, useEffect, useState } from "react";
-import {signIn, useSession} from "next-auth/react";
+import React, { useEffect } from "react";
+import { signIn, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import google from "@/public/assets/GoogleLogo.png"
-import Image from "next/image"
-import Link from "next/link";
-import {
-    Card,
-} from "@/components/ui/card";
-import {useRouter} from "next/navigation";
-interface OwnProps {}
+import { Card } from "@/components/ui/card";
+import { useRouter, useSearchParams } from "next/navigation";
 
-type Props = OwnProps;
+const Page = () => {
+  const { data: session } = useSession();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/payment";
 
-const Page: FunctionComponent<Props> = (props) => {
-    const { data: session } = useSession();
-    const route = useRouter()
-    useEffect(() => {
-       if(session){
-           route.push("/")
-       }
-    }, [session]);
+  useEffect(() => {
+    if (session) {
+      router.push(callbackUrl);
+    }
+  }, [session, callbackUrl, router]);
 
+  if (!session)
     return (
-        <div className={"flex flex-col justify-center items-center h-screen"}>
-            <Card>
-                <Button className="text-3xl  w-30 h-50" variant={"outline"}
-                        onClick={() => signIn("google")}>
-                    <Image src={google} width={50} height={50} alt={"googleLogo"}/> Login</Button>
-            </Card>
-        </div>
+      <main className="flex h-screen items-center justify-center">
+        <button
+          onClick={() => signIn("google")}
+          className="bg-blue-500 text-white px-6 py-2 rounded shadow"
+        >
+          Login with Google
+        </button>
+      </main>
     );
 };
 
