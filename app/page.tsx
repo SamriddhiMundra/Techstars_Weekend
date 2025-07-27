@@ -1,6 +1,6 @@
 import Hero from "@/components/landingPage/Hero";
 import WhyStartupWeekend from "@/components/landingPage/WhyStartupWeekend";
-import Mentors  from "@/components/landingPage/Mentor";
+import Mentors from "@/components/landingPage/Mentor";
 import { Sponsor } from "@/components/landingPage/sponsor";
 import { Judges } from "@/components/landingPage/judges";
 import React from "react";
@@ -32,8 +32,6 @@ export const metadata: Metadata = {
   ],
 };
 
-
-
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between md:p-24 scroll-smooth transition duration-1000">
@@ -42,8 +40,6 @@ export default function Home() {
       <Sponsor />
       <Mentors />
       <Judges></Judges>
-     
-     
     </main>
   );
 }
