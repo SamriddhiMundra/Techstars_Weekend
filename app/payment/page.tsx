@@ -42,10 +42,10 @@ const Payment: FunctionComponent<Props> = (props) => {
       const data = querySnapshot.docs[0].data();
       console.log(data);
       setUser(data);
-      //   if (!data.formFilled) {
-      //     console.log("form not filled");
-      //     // router.push("/form");
-      //   }
+        if (!data.formFilled) {
+          console.log("form not filled");
+          router.push("/form");
+        }
     };
     fetcher();
   }, [session, router]);
