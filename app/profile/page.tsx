@@ -31,13 +31,12 @@ type ParsedUser = {
 };
 
 const Page: FunctionComponent<Props> = (props) => {
-  const [user, setUser] = useState<User | null>(null);
   const { data: session, status } = useSession();
-  // useFormCheck();
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // if (status !== "authenticated") return;
-
+    setIsLoading(true);
     fetch("/api/fetch-townscript")
       .then((res) => res.json())
       .then((data) => {
@@ -61,6 +60,7 @@ const Page: FunctionComponent<Props> = (props) => {
 
           console.log(user);
           setUser(user);
+          setIsLoading(false);
         }
       })
       .catch((err) => {
@@ -102,52 +102,64 @@ const Page: FunctionComponent<Props> = (props) => {
   //   fetcher();
   // }, [session]);
 
+  // if (status === "loading") {
+  //   return <p>Loading...</p>; // Or a spinner
+  // }
+
   return (
     <div className={"flex flex-col justify-center items-center h-screen"}>
-      {" "}
-      {status === "loading" ? (
-        <p>Loading...</p>
-      ) : (
-        <Card>
-          <CardHeader>
-            <CardTitle>Profile</CardTitle>
-          </CardHeader>
-          <CardContent className="grid gap-1">
-            <div className="-mx-2 flex items-start space-x-4 rounded-md bg-accent p-2 text-accent-foreground transition-all">
-              <PersonIcon className="mt-px h-5 w-5" />
-              <div className="space-y-1">
-                <p className="text-sm font-medium leading-none">
-                  {session?.user?.name}
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  {session?.user?.email}
-                </p>
-              </div>
-            </div>
-
-            {user?.paymentId && (
-              <div className="-mx-2 flex items-start space-x-4 rounded-md p-2 transition-all hover:bg-accent hover:text-accent-foreground">
-                <EyeNoneIcon className="mt-px h-5 w-5" />
+      <Card>
+        {!isLoading ? (
+          <>
+            <CardHeader>
+              <CardTitle>Profile</CardTitle>
+            </CardHeader>
+            <CardContent className="grid gap-1">
+              <div className="-mx-2 flex items-start space-x-4 rounded-md bg-accent p-2 text-accent-foreground transition-all">
+                <PersonIcon className="mt-px h-5 w-5" />
                 <div className="space-y-1">
-                  <p className="text-sm font-medium leading-none">Payment ID</p>
+                  <p className="text-sm font-medium leading-none">
+                    {session?.user?.name}
+                  </p>
                   <p className="text-sm text-muted-foreground">
-                    {user?.paymentId}
+                    {session?.user?.email}
                   </p>
                 </div>
               </div>
+
+              {isLoading ? null : user?.paymentId ? (
+                <div className="-mx-2 flex items-start space-x-4 rounded-md p-2 transition-all hover:bg-accent hover:text-accent-foreground">
+                  <EyeNoneIcon className="mt-px h-5 w-5" />
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium leading-none">
+                      Payment ID
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {user?.paymentId}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
+            </CardContent>
+          </>
+        ) : (
+          <p>Loading...</p>
+        )}
+
+        {isLoading
+          ? null
+          : !user?.paymentId && (
+              <CardFooter>
+                <Link href="/payment" className="w-full">
+                  <Button variant="default" className="w-full">
+                    Get Ticket
+                  </Button>
+                </Link>
+              </CardFooter>
             )}
-          </CardContent>
-          {!user?.paymentId && (
-            <CardFooter>
-              <Link href={"/payment"} className={"w-full"}>
-                <Button variant={"default"} className={"w-full"}>
-                  Get Ticket
-                </Button>
-              </Link>
-            </CardFooter>
-          )}
-        </Card>
-      )}
+      </Card>
     </div>
   );
 };
