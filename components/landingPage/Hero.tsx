@@ -39,10 +39,12 @@ type ParsedUser = {
 
 const Hero: FunctionComponent<Props> = () => {
   const { data: session, status } = useSession();
+  // const [isLoading, setIsLoading] = useState(true);
 
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
+    // setIsLoading(true);
     fetch("/api/fetch-townscript")
       .then((res) => res.json())
       .then((data) => {
@@ -66,12 +68,14 @@ const Hero: FunctionComponent<Props> = () => {
 
           console.log(user);
           setUser(user);
+          // setIsLoading(false);
         }
       })
       .catch((err) => {
         console.error("Error fetching Townscript data:", err);
       });
   }, [session]);
+
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12 lg:-mt-28  ">
@@ -113,21 +117,11 @@ const Hero: FunctionComponent<Props> = () => {
           SEPTEMBER 12-14, 2025, IIT BHU Varanasi
         </p>
         <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4 ">
-          {!user?.paymentId ? (
-            <Link href={"/payment"}>
-              <Button size={"lg"} className="text-2xl py-2">
-                <Icons.ticket className={"h-5 w-5 mr-2"} />
-                Get Ticket
-              </Button>
-            </Link>
-          ) : (
-            <Link href={"/profile"}>
-              <Button size={"lg"} className="text-2xl py-2">
-                <Icons.ticket className={"h-5 w-5 mr-2"} />
-                Get Ticket
-              </Button>
-            </Link>
-          )}
+          <Link href={!user?.paymentId ? "/payment" : "/profile"}>
+            <Button variant={"default"} size={"sm"} className={"mr-4 px-4"}>
+              {!user?.paymentId ? "Get Ticket" : "Payment ID"}
+            </Button>
+          </Link>
         </div>
         <div className="px-4 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36">
           <span className="font-semibold text-2xl text-black uppercase">
