@@ -64,13 +64,26 @@ export const NavbarAction: FunctionComponent<Props> = (props) => {
   return (
     <>
       <div className="flex justify-center items-center">
-        {isLoading ? null : !user?.paymentId ? (
+        {/* {isLoading ? null : !user?.paymentId ? (
           <Link href={"/payment"}>
             <Button variant={"default"} size={"sm"} className={"mr-4 px-4"}>
               Get Ticket
             </Button>
           </Link>
-        ) : null}
+        ) : null} */}
+
+        <Link href={!user?.paymentId ? "/payment" : "/profile"}>
+          <Button variant={"default"} size={"sm"} className={"mr-4 px-4"}>
+            {!user?.paymentId ? "Get Ticket" : "Payment ID"}
+          </Button>
+        </Link>
+
+        {/* <Link href={"/payment"}>
+          <Button variant={"default"} size={"sm"} className={"mr-4 px-4"}>
+            Get Ticket
+          </Button>
+        </Link> */}
+
         <Suspense fallback={<div>Loading...</div>}>
           {session?.user && status === "authenticated" ? (
             <UserNav />
