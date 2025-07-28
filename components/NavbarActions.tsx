@@ -88,4 +88,31 @@ export const NavbarAction: FunctionComponent<Props> = (props) => {
       </div>
     </>
   );
+  // return (
+  //   <>
+  //     <div className="flex justify-center items-center">
+  //       {
+  //         <Link href={"/payment"}>
+  //           <Button variant={"default"} size={"sm"} className={"mr-4 px-4"}>
+  //             Get Ticket
+  //           </Button>
+  //         </Link>
+  //       }
+  //       <Suspense fallback={<div>Loading...</div>}>
+  //         {status === "authenticated" ? (
+  //           <UserNav />
+  //         ) : (
+  //           <Button
+  //             variant={"secondary"}
+  //             size={"sm"}
+  //             className={"px-4"}
+  //             onClick={() => signIn("google")}
+  //           >
+  //             Sign In
+  //           </Button>
+  //         )}
+  //       </Suspense>
+  //     </div>
+  //   </>
+  // );
 };

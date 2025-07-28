@@ -60,8 +60,8 @@ const Page: FunctionComponent<Props> = (props) => {
 
           console.log(user);
           setUser(user);
-          setIsLoading(false);
         }
+        setIsLoading(false);
       })
       .catch((err) => {
         console.error("Error fetching Townscript data:", err);
