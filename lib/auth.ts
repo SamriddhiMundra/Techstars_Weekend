@@ -43,14 +43,14 @@ export const authOptions: NextAuthOptions = {
         // console.log(querySnapshot);
 
         if (querySnapshot.empty) {
-          await setDoc(doc(db, "users", user.email), {
+          await setDoc(doc(db, "users", user.id), {
             ...user,
             formFilled: false,
           });
         } else {
           const userDoc = querySnapshot.docs[0];
           console.log(userDoc);
-          await updateDoc(doc(db, "users", user.email), {
+          await updateDoc(doc(db, "users", user.id), {
             ...user,
             formFilled: userDoc.data().formFilled || false,
           });
