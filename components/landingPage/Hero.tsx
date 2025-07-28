@@ -107,7 +107,7 @@ const Hero: FunctionComponent<Props> = () => {
           </svg>
         </a>
         <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-          Innovator to Entrepreneur
+          Techstars Startup Weekend Varanasi
         </h1>
         <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
           SEPTEMBER 12-14, 2025, IIT BHU Varanasi
@@ -199,8 +199,8 @@ const Hero: FunctionComponent<Props> = () => {
             <p className="mt-4 text-xl font-semibold">Brex Rewards</p>
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 px-4 mx-auto mt-8">
-          <div className="text-center lg:mt-10 md:mt-16">
+        <div className="grid grid-cols-1 sm:grid-cols-1 gap-10 px-4 mx-auto mt-8">
+          {/* <div className="text-center lg:mt-10 md:mt-16">
             <Image
               src={godaddy}
               alt={"godaddy"}
@@ -209,7 +209,7 @@ const Hero: FunctionComponent<Props> = () => {
             <p className="mt-2 text-xl font-semibold">
               Free GoDaddy domain (.co.in)
             </p>
-          </div>
+          </div> */}
           <div className="text-center mt-8 ">
             <Image
               src={googlecloud}

@@ -167,7 +167,7 @@ const FormComponent: React.FC<FormComponentProps> = ({ userId }) => {
                                 <FormMessage />
                                 </span>
                                 <FormControl>
-                                    <Input type="email"  placeholder="Email Address" {...field} />
+                                    <Input type="email" disabled placeholder="Email Address" {...field} />
                                 </FormControl>
                             </FormItem>
                         )}
