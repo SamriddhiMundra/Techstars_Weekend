@@ -5,6 +5,7 @@ import WhyStartupWeekend from "@/components/landingPage/WhyStartupWeekend";
 import Mentors from "@/components/landingPage/Mentor";
 import { Sponsor } from "@/components/landingPage/sponsor";
 import { Judges } from "@/components/landingPage/judges";
+import Testimonials  from "@/components/landingPage/Testimonials";
 import React, { useState } from "react";
 import Link from "next/link";
 import { Metadata } from "next";
@@ -64,6 +65,7 @@ export default function Home() {
       <Sponsor />
       <Mentors />
       <Judges></Judges>
+      <Testimonials />
     </main>
   );
 }
