@@ -106,7 +106,7 @@ const Testimonials: React.FC = () => {
     <Container>
       <Heading>What People Say About GSW</Heading>
       <Card fade={fade}>
-        <Message>"{current.message}"</Message>
+        <Message>&ldquo;{current.message}&rdquo;</Message>
         <Name>- {current.name}</Name>
       </Card>
       <NavButtons>
