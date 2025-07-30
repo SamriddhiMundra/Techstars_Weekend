@@ -15,7 +15,7 @@ export default function Home() {
     if (status == "unauthenticated") {
       route.push("/api/login");
     }
-  }, [status]);
+  }, [status, route]);
   useEffect(() => {
     const fetcher = async () => {
       const q = query(

@@ -14,7 +14,7 @@ const Heading = styled.h2`
   font-size: 2em;
   font-weight: bold;
   margin-bottom: 20px;
-  text-align:center;
+  text-align: center;
 `;
 
 const Card = styled.div<{ fade: boolean }>`
@@ -23,16 +23,16 @@ const Card = styled.div<{ fade: boolean }>`
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 30px;
-  max-width: 65vw;;
-  height:310px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  max-width: 65vw;
+  height: 310px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   transition: opacity 0.4s ease;
   opacity: ${({ fade }) => (fade ? 1 : 0)};
 
   @media (max-width: 768px) {
     max-width: 90vw;
     padding: 20px;
-    height:50vh;
+    height: 50vh;
   }
 
   @media (max-width: 480px) {
@@ -44,12 +44,12 @@ const Card = styled.div<{ fade: boolean }>`
 const Message = styled.p`
   font-size: 1em;
   color: #555;
-  font-style:italic;
-  font-family:cursive;
+  font-style: italic;
+  font-family: cursive;
 `;
 
 const Name = styled.h3`
-  color: #52B752;
+  color: #52b752;
   margin-top: 75px;
   font-weight: bold;
 `;
@@ -75,15 +75,15 @@ const Button = styled.button`
 `;
 
 const Testimonials: React.FC = () => {
-  const testimonials = TestimonialsData.filter(t => t?.message && t?.name);
+  const testimonials = TestimonialsData.filter((t) => t?.message && t?.name);
   const [index, setIndex] = useState(0);
   const [fade, setFade] = useState(true); // fade state
 
-  const triggerFade = (direction: 'next' | 'prev') => {
+  const triggerFade = (direction: "next" | "prev") => {
     setFade(false);
     setTimeout(() => {
       setIndex((prevIndex) =>
-        direction === 'next'
+        direction === "next"
           ? (prevIndex + 1) % testimonials.length
           : prevIndex === 0
           ? testimonials.length - 1
@@ -95,7 +95,7 @@ const Testimonials: React.FC = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      triggerFade('next');
+      triggerFade("next");
     }, 4500);
     return () => clearInterval(interval);
   }, []);
@@ -110,12 +110,11 @@ const Testimonials: React.FC = () => {
         <Name>- {current.name}</Name>
       </Card>
       <NavButtons>
-        <Button onClick={() => triggerFade('prev')}>&lt;--</Button>
-        <Button onClick={() => triggerFade('next')}>--&gt;</Button>
+        <Button onClick={() => triggerFade("prev")}>&lt;--</Button>
+        <Button onClick={() => triggerFade("next")}>--&gt;</Button>
       </NavButtons>
     </Container>
   );
 };
-
 
 export default Testimonials;
