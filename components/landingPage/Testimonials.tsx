@@ -96,7 +96,7 @@ const Testimonials: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       triggerFade("next");
-    }, 4500);
+    }, 5500);
     return () => clearInterval(interval);
   }, []);
 
