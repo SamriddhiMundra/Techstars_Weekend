@@ -6,6 +6,7 @@ import Mentors from "@/components/landingPage/Mentor";
 import { Sponsor } from "@/components/landingPage/sponsor";
 import { Judges } from "@/components/landingPage/judges";
 import Testimonials from "@/components/landingPage/Testimonials";
+import FAQs from "@/components/landingPage/faqs";
 import { useSession } from "next-auth/react";
 
 export default function HomeClient() {
@@ -28,6 +29,7 @@ export default function HomeClient() {
       <Mentors />
       <Judges />
       <Testimonials />
+      <FAQs/>
     </main>
   );
 }
