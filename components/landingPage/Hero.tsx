@@ -9,7 +9,8 @@ import Google from "@/public/assets/GoogleForStartups_Horizontal1.png";
 import gd from "@/public/assets/GD_REGISTRY_POWERED_BY_LOCKUP_3_CMYK_COLOR1.png";
 //@ts-ignore
 import brex from "@/public/assets/BrexBlack.png";
-import merch from "@/public/assets/merch2.jpeg";
+import merch from "@/public/assets/T-ShirtFront.png";
+import merch2 from "@/public/assets/T-ShirtBack.png";
 import goodies from "@/public/assets/goodies.png";
 import godaddy from "@/public/assets/godaddy.png";
 import googlecloud from "@/public/assets/googlecloud.png";
@@ -171,48 +172,44 @@ const Hero: FunctionComponent<Props> = () => {
         <div className="mt-20 mb-20 text-center lg:text-6xl font-extrabold sm:text-4xl text-3xl">
           <span>Benefits Of Startup Weekend</span>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-4 mx-auto">
-          <div className="text-center">
-            <Image src={merch} alt={"merch"} className="w-40 h-40 mx-auto" />
-            <p className="mt-4 text-xl font-semibold">Merchandise</p>
-          </div>
-          <div className="text-center">
-            <Image
-              src={goodies}
-              alt={"goodies"}
-              className="w-64 h-40 mx-auto"
-            />
-            <p className="mt-4 text-xl font-semibold">Goodies</p>
-          </div>
-          <div className="text-center lg:mt-16 md:mt-10">
-            <Image
-              src={brex}
-              alt={"brex"}
-              className=" -mt-4 lg:w-60 lg:h-28 md:h-14 sm:w-48 sm:h-8 w-32 h-10 mx-auto"
-            />
-            <p className="mt-4 text-xl font-semibold">Brex Rewards</p>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-1 gap-10 px-4 mx-auto mt-8">
-          {/* <div className="text-center lg:mt-10 md:mt-16">
-            <Image
-              src={godaddy}
-              alt={"godaddy"}
-              className="w-60 h-32 mx-auto"
-            />
-            <p className="mt-2 text-xl font-semibold">
-              Free GoDaddy domain (.co.in)
-            </p>
-          </div> */}
-          <div className="text-center mt-8 ">
-            <Image
-              src={googlecloud}
-              alt={"googlecloud"}
-              className="w-48 h-32 mx-auto"
-            />
-            <p className="mt-4 text-xl font-semibold">$300 Google Credits</p>
-          </div>
-        </div>
+        {/* First Row: Merch + Goodies */}
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 mx-auto mb-8">
+  <div className="text-center flex flex-col items-center">
+    <div className="flex justify-center space-x-4">
+      <Image src={merch} alt="merchBack" className="w-40 h-40" />
+      <Image src={merch2} alt="merchFront" className="w-40 h-40" />
+    </div>
+    <p className="mt-4 text-xl font-semibold">Merchandise</p>
+  </div>
+
+  <div className="text-center flex flex-col items-center">
+    <Image src={goodies} alt="goodies" className="w-64 h-40 mx-auto" />
+    <p className="mt-4 text-xl font-semibold">Goodies</p>
+  </div>
+
+  <div className="text-center flex flex-col items-center">
+    <Image
+      src={brex}
+      alt="brex"
+      className="-mt-4 lg:w-60 lg:h-28 md:h-14 sm:w-48 sm:h-8 w-32 h-10 mx-auto"
+    />
+    <p className="mt-4 text-xl font-semibold">Brex Rewards</p>
+  </div>
+</div>
+
+{/* Second Row: GoDaddy + Google Credits */}
+<div className="flex justify-center gap-10 px-4 mx-auto">
+  <div className="text-center flex flex-col items-center">
+    <Image src={godaddy} alt="godaddy" className="w-60 h-32 mx-auto" />
+    <p className="mt-2 text-xl font-semibold">Free GoDaddy domain (.co.in)</p>
+  </div>
+
+  <div className="text-center flex flex-col items-center">
+    <Image src={googlecloud} alt="googlecloud" className="w-48 h-32 mx-auto" />
+    <p className="mt-4 text-xl font-semibold">$300 Google Credits</p>
+  </div>
+</div>
+
       </div>
     </section>
   );
