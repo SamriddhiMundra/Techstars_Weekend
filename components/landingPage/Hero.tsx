@@ -197,12 +197,9 @@ const Hero: FunctionComponent<Props> = () => {
   </div>
 </div>
 
-{/* Second Row: GoDaddy + Google Credits */}
+
 <div className="flex justify-center gap-10 px-4 mx-auto">
-  <div className="text-center flex flex-col items-center">
-    <Image src={godaddy} alt="godaddy" className="w-60 h-32 mx-auto" />
-    <p className="mt-2 text-xl font-semibold">Free GoDaddy domain (.co.in)</p>
-  </div>
+  
 
   <div className="text-center flex flex-col items-center">
     <Image src={googlecloud} alt="googlecloud" className="w-48 h-32 mx-auto" />
